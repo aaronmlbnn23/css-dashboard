@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-root',
@@ -8,14 +8,32 @@ import { Component, OnInit } from '@angular/core';
 
 export class AppComponent {
   constructor() { }
-
+  
+  isResized: boolean | undefined;
+ 
   ngOnInit(): void {
-    let btn = document.querySelector('#toggleBtn');
-    let sidebar = document.querySelector('.sidebar');
+  
+    let width = (window.innerWidth > 0) ? window.innerWidth : screen.width;
 
-    btn?.addEventListener('click', function () {
-      sidebar?.classList.toggle('active');
-    });
+     
+
+     let btn = document.querySelector('#toggleBtn');
+     let sidebar = document.querySelector('.sidebar');
+
+      window.addEventListener('resize', () => {
+         this.isResized = true;
+         let newWidth  = (window.innerWidth > 0) ? window.innerWidth : screen.width;
+         width = newWidth; 
+         console.log(width);
+        
+      });
+
+   
+        btn?.addEventListener('click', function () {
+          sidebar?.classList.toggle('close');
+    
+        });
+
   }
  
 }
